@@ -42,7 +42,29 @@ func main() {
 			ctx.SetCookieKV("c","OJBK")
 			ctx.HTML("API:" + "SetCookies" + "<br>" + "Cookies:")
 		}else{
-		ctx.HTML("API:" + "NO!" + "<br>" + "Cookies:"+ctx.GetCookie("c"))
+		//ctx.HTML("API:" + "NO!" + "<br>" + "Cookies:"+ctx.GetCookie("c"))
+		ctx.HTML(`<body>
+<script language="JavaScript" type="text/javascript">
+    //设置两个cookie
+    document.cookie="userId=u001";
+    document.cookie="userName=lazyCat";
+    //获取cookie字符串
+    var strCookie=document.cookie;
+    //将多cookie切割为多个名/值对
+    var arrCookie=strCookie.split("; ");
+    var userName;
+    //遍历cookie数组，处理每个cookie对
+    for(var i=0;i<arrCookie.length;i++){
+        var arr=arrCookie[i].split("=");
+//找到名称为userId的cookie，并返回它的值
+        if("userName"==arr[0]){
+            userName=arr[1];
+            break;
+        }
+    }
+    alert(userName);
+</script>
+</body>`)
 		}
 	})
 

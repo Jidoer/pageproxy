@@ -28,7 +28,7 @@ func main() {
 			return
 		}
 		defer resp.Body.Close()
-		if (resp.StatusCode == 200 || resp.StatusCode == 201) {
+		if resp.StatusCode == 200 || resp.StatusCode == 201 {
 			body, _ := ioutil.ReadAll(resp.Body)
 			ctx.ContentType(context.ContentJSONHeaderValue)
 			//ctx.Write(body)
@@ -37,6 +37,23 @@ func main() {
 			ctx.JSON(iris.Map{"success": false, "error_message": "target not ok"})
 		}
 	})
+/*
+	app.Get("/gettype/{apiCall:path}", func(ctx iris.Context) {
+		apiCall := ctx.Params().Get("apiCall")
+		//ugets := ctx.Handlers()
+		 mc := string(apiCall[strings.LastIndex(apiCall, "."):])
+		 print(mc)
+
+		if len(apiCall) > 0 {
+			log.Print(apiCall)
+		}else {
+			ctx.HTML("error")
+		}
+
+	})
+
+*/
+
 	err := app.Run(
 		// Start the web server at localhost:8080
 		iris.Addr(":9000"),
